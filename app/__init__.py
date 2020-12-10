@@ -26,12 +26,12 @@ async def send_to_azure():
     # Connect the device client.
     await device_client.connect()
 
-    data = {"time": str(datetime.datetime.now()), "cpuTemp": measure_temp()}
+    data = {"time": str(datetime.datetime.now()), "devices": [{"name": "Raspberry Pi", "sensors": [{"sensor":"CPU Temp", "value": measure_temp()}]}]}
     jsonData = json.dumps(data)
     # Send a single message
-    print("Sending message...")
+    print(str(datetime.datetime.now()) + "    Sending message...")
     await device_client.send_message(jsonData)
-    print("Message successfully sent!")
+    print(str(datetime.datetime.now()) + "    Message successfully sent!")
 
     # finally, disconnect
     await device_client.disconnect()
